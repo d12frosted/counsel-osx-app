@@ -1,0 +1,10 @@
+* counsel-app
+
+[[https://github.com/syl20bnr/spacemacs][file:https://cdn.rawgit.com/syl20bnr/spacemacs/442d025779da2f62fc86c2082703697714db6514/assets/spacemacs-badge.svg]]
+
+Launch applications via ivy interface. Currently supports OS X and Linux (not
+tested yet). In order to use it you might want to configure some variables like
+~counsel-apps-location~, ~counsel-apps-patter~ and ~counsel-app-launch-cmd~. Refer to
+their documentation for more information. After that just call ~counsel-app~ to
+select application to launch. This function also allows you to open specific
+file in chosen application via ivy actions.
