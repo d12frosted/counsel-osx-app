@@ -81,10 +81,11 @@
           (add-to-list 'counsel-apps-faulty file))))))
 
 (defun counsel-apps-list ()
-  (let ((files
-         (delete
-          ".." (delete
-                "." (file-expand-wildcards (concat counsel-apps-location "/" counsel-apps-pattern))))))
+  "Get the list of applications under `counsel-apps-location'."
+  (let* ((locs (if (stringp counsel-apps-location) `(,counsel-apps-location) counsel-apps-location))
+         (files (apply #'append (mapcar (lambda (path)
+                                          (file-expand-wildcards (concat path "/" counsel-apps-pattern)))
+                                        locs))))
     (cond ((eq system-type 'darwin)
            (counsel-apps-list--setup-osx files))
           ((eq system-type 'gnu/linux)
