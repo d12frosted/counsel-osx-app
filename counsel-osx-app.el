@@ -49,8 +49,8 @@ applications.")
 
 (defvar counsel-osx-app-launch-cmd (lambda (app &optional file)
                                      (if (bound-and-true-p file)
-                                         (format "open '%s' -a '%s'" file app)
-                                       (format "open '%s'" app)))
+                                         (format "open %s -a %s" (shell-quote-argument file) (shell-quote-argument app))
+                                       (format "open %s" (shell-quote-argument app))))
   "Command for launching application.
 
 Can be either format string or function that accepts path to
@@ -73,7 +73,7 @@ argument and returns command.")
   (call-process-shell-command
    (cond
     ((stringp counsel-osx-app-launch-cmd)
-     (format "%s '%s'" counsel-osx-app-launch-cmd app))
+     (format "%s %s" counsel-osx-app-launch-cmd (shell-quote-argument app)))
     ((functionp counsel-osx-app-launch-cmd)
      (funcall counsel-osx-app-launch-cmd app))
     (t
@@ -89,7 +89,7 @@ argument and returns command.")
         (call-process-shell-command
          (cond
           ((stringp counsel-osx-app-launch-cmd)
-           (format "%s '%s' '%s'" counsel-osx-app-launch-cmd app file))
+           (format "%s %s %s" counsel-osx-app-launch-cmd (shell-quote-argument app) (shell-quote-argument file)))
           ((functionp counsel-osx-app-launch-cmd)
            (funcall counsel-osx-app-launch-cmd app file))
           (t
