@@ -3,7 +3,7 @@
 ;; Copyright (c) 2016 Boris Buliga
 ;;
 ;; Author: Boris Buliga <d12frosted@gmail.com>
-;; URL: https://github.com/d12frosted/flyspell-correct
+;; URL: https://github.com/d12frosted/counsel-osx-app
 ;; Version: 0.1.0
 ;; Package-Requires: ((ivy "0.8.0") (emacs "24.1"))
 ;;
