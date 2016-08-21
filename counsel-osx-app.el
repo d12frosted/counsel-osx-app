@@ -47,10 +47,13 @@
 Use \"*\" if all files in `counsel-osx-app-location' are considered
 applications.")
 
-(defvar counsel-osx-app-launch-cmd (lambda (app &optional file)
-                                     (if (bound-and-true-p file)
-                                         (format "open %s -a %s" (shell-quote-argument file) (shell-quote-argument app))
-                                       (format "open %s" (shell-quote-argument app))))
+(defvar counsel-osx-app-launch-cmd
+  (lambda (app &optional file)
+    (if (bound-and-true-p file)
+        (format "open %s -a %s"
+                (shell-quote-argument file)
+                (shell-quote-argument app))
+      (format "open %s" (shell-quote-argument app))))
   "Command for launching application.
 
 Can be either format string or function that accepts path to
@@ -78,7 +81,8 @@ argument and returns command.")
     ((functionp counsel-osx-app-launch-cmd)
      (funcall counsel-osx-app-launch-cmd app))
     (t
-     (user-error "Could not construct cmd from `counsel-osx-app-launch-cmd'")))))
+     (user-error
+      "Could not construct cmd from `counsel-osx-app-launch-cmd'")))))
 
 (defun counsel-osx-app-action-file (app)
   "Open file in APP using `counsel-osx-app-launch-cmd'."
@@ -90,11 +94,15 @@ argument and returns command.")
         (call-process-shell-command
          (cond
           ((stringp counsel-osx-app-launch-cmd)
-           (format "%s %s %s" counsel-osx-app-launch-cmd (shell-quote-argument app) (shell-quote-argument file)))
+           (format "%s %s %s"
+                   counsel-osx-app-launch-cmd
+                   (shell-quote-argument app)
+                   (shell-quote-argument file)))
           ((functionp counsel-osx-app-launch-cmd)
            (funcall counsel-osx-app-launch-cmd app file))
           (t
-           (user-error "Could not construct cmd from `counsel-osx-app-launch-cmd'"))))
+           (user-error
+            "Could not construct cmd from `counsel-osx-app-launch-cmd'"))))
       (user-error "Cancelled"))))
 
 (defmacro counsel-osx-app--use-cdr (f)
@@ -103,7 +111,9 @@ argument and returns command.")
 
 (ivy-set-actions
  'counsel-osx-app
- `(("f" ,(counsel-osx-app--use-cdr counsel-osx-app-action-file) "run on a file")))
+ `(("f"
+    ,(counsel-osx-app--use-cdr counsel-osx-app-action-file)
+    "run on a file")))
 
 ;;;###autoload
 (defun counsel-osx-app ()
@@ -114,4 +124,5 @@ argument and returns command.")
             :caller 'counsel-app))
 
 (provide 'counsel-osx-app)
+
 ;;; counsel-osx-app.el ends here
